@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .respond-button {
+        display: block;
+        width: 100%;
+        max-width: 200px;
+        padding: 10px;
+        background-color: #1da1f2;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+    .respond-button:hover {
+        background-color: #0c7abf;
+    }
+
+    .respond-button:active {
+        background-color: #0a6899;
+    }
+
+    .respond-form {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+</style>
+
+    {% if ads %}
+        <div class="container">
+            {% for ad in ads %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h1 class="card-text">User: {{ ad.user }}</h1>
+                        <h6 class="card-subtitle mb-2 text-muted">Category: {{ ad.category }}</h6>
+                        <h2 class="card-title">{{ ad.title }}</h2>
+                        <p class="card-text">{{ ad.text }}</p>
+                        <p class="card-text"><small class="text-muted">Date: {{ ad.date_in }}</small></p>
+                        {% if ad.image %}
+                            <img src="{{ ad.image.url }}" class="card-img-top" alt="Ad image">
+                        {% endif %}
+                        {% if ad.video_url %}
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="{{ ad.video_url }}" allowfullscreen></iframe>
+                            </div>
+                        {% endif %}
+                        <form method="post" class="respond-form" action="{% url 'do_response' ad.id %}">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="respond-button">Respond</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No ads found.</p>
+    {% endif %}
+{% endblock %}

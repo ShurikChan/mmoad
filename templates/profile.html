@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  .ad-item {
+    border: 1px solid #e1e8ed;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .edit-btn, .responses-btn, .logout-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+  }
+  
+  .edit-btn {
+    background-color: #4CAF50;
+    margin-right: 10px;
+  }
+  
+  .responses-btn {
+    background-color: #FFD700;
+  }
+
+  .logout-btn {
+    background-color: #cb1400;
+  }
+  
+  </style>
+
+<center> <h1>{{ user }}'s Profile 
+  <a href="{% url 'account_logout' %}" class="logout-btn">Logout</a>
+</h1> </center>
+<h3>Your advertisements</h3>
+<ul style="margin-top: 20px;">
+  {% for ad in ads %}
+    <li class="ad-item">
+      <h2>{{ ad.title }}</h2>
+      <p>{{ ad.text }}</p>
+      <div class="button-group">
+        <a href="{% url 'addelete' pk=ad.pk %}" class="logout-btn" style="margin-right: 10px;">Delete</a>
+        <a href="{% url 'adedit' pk=ad.pk %}" class="edit-btn">Edit</a>
+        <a href="{% url 'responseslist' ad.id %}" class="responses-btn">Responses</a>
+      </div>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

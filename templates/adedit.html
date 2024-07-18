@@ -2,9 +2,13 @@
 
 
 {% block content %}
-<h1>Make an advertisement</h1>
+<h1>Edit an advertisement</h1>
+{% if ad_author == user %}
 <form method="post" enctype="multipart/form-data">{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Save">
 </form>
+{% else %}
+<p>You are not the author of this advertisement.</p>
+{% endif %}
 {% endblock %}

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .tweet-container {
+        border: 1px solid #e1e8ed;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+    
+    .separator {
+        border-bottom: 1px solid #e1e8ed;
+        margin: 10px 0;
+    }
+    
+    .tweet-header {
+        display: flex;
+        align-items: center;
+    }
+    
+    .tweet-header img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    
+    .tweet-body {
+        margin: 10px 0;
+    }
+    
+    .tweet-footer {
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .btn-small {
+        padding: 3px 8px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 12px;
+    }
+    
+    .reject-btn {
+        background-color: #ff6347;
+        color: white;
+    }
+    
+    .accept-btn {
+        background-color: #4CAF50;
+        color: white;
+        margin-left: 10px;
+    }
+    </style>
+
+    <h1>Advertisement responses</h1>
+    <div class="separator"></div>
+{% if ad_author == user %}
+{% if responses %}
+    {% for response in responses%}
+    <div class="tweet-container">
+        <div class="tweet-header">
+            <h4>From user: {{ response.user.username }}</h4>
+        </div>
+        <h6>{{ response.date_in }}</h6>
+        <div class="tweet-body">
+            <p>{{ response.text }}</p>
+        </div>
+        <div class="tweet-footer">
+            <form method="post" action="{% url 'responsedelete' response.id %}">
+                {% csrf_token %}
+                <button type="submit" class="reject-btn btn-small">Delete</button>
+            </form>
+            <form method="post" action="{% url 'accept_response' response.id %}">
+                {% csrf_token %}
+                <button type="submit" class="accept-btn btn-small">Accept</button>
+            </form>
+        </div>
+    </div>
+    {% if not forloop.last %}
+    <div class="separator"></div>
+    {% endif %}
+    {% endfor %}
+{% else %}
+<p>No responses found.</p>
+{% endif %}
+{% else %}
+<p>You are not the author of this advertisement.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,129 @@
+<!-- addetail.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+.container {
+    max-width: 100%;
+    padding: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #e6ecf0;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.card-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.card-header h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    margin-bottom: 10px;
+}
+
+.card-category {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.card-video {
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+.card-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.container .row {
+    display: flex;
+    justify-content: center;
+}
+
+.container .row .col-md-12 {
+    max-width: 600px;
+}
+
+.container .row .col-md-12 .card {
+    width: 100%;
+}
+
+.respond-button {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    padding: 10px;
+    background-color: #1da1f2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.respond-button:hover {
+    background-color: #0c7abf;
+}
+
+.respond-button:active {
+    background-color: #0a6899;
+}
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <img src="https://via.placeholder.com/48x48" alt="User Avatar">
+                    <h2>{{ ad.user }}</h2>
+                </div>
+                <h1 class="card-title">{{ ad.title }}</h1>
+                <p class="card-text">{{ ad.text }}</p>
+                <p class="card-category">Category: {{ ad.category }}</p>
+                {% if ad.video_url %}
+                    <video class="card-video" controls>
+                        <source src="{{ ad.video_url }}" type="video/mp4">
+                    </video>
+                {% endif %}
+                {% if ad.image %}
+                    <img class="card-image" src="{{ ad.image.url }}" alt="{{ ad.title }}">
+                {% endif %}
+                <button class="respond-button">Respond</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
