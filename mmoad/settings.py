@@ -150,4 +150,4 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 ACCOUNT_FORMS = {'signup': 'adboard.forms.CommonSignUpForm'}
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-LOGIN_REDIRECT_URL = 'accounts/profile'
+LOGIN_REDIRECT_URL = '/accounts/profile/'
